@@ -1,7 +1,28 @@
 import  { checkSchema } from 'express-validator';
-
+import mongoose from 'mongoose';
+import { isAdminType } from '../../helpers/user.helpers.js';
 
 export const createProductSchema = checkSchema({
+    userId:{
+        in: ['body'],
+        notEmpty: {
+            errorMessage: 'UserId es requerido',
+            options: { ignore_whitespace: true }
+        },
+        isString: {
+            errorMessage: 'Usuario debe ser un string'
+        },
+        custom:{
+            options: async (value) => {
+                const isUser = await isAdminType(value);
+                if(!isUser){
+                    throw new Error('No tienes permisos para crear un producto');
+                }
+                return true;
+            },
+            
+        }
+    },
     name: {
         in: ['body'],
         isString: {

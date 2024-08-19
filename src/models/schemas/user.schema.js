@@ -27,7 +27,7 @@ export const userSchema = checkSchema({
         in: ["body"],
         isString: true,
         isIn: {
-        options: [["cliente", "vendedor", "admin"]],
+        options: [["customer", "seller", "admin"]],
         errorMessage: "Invalid role",
         },
     },

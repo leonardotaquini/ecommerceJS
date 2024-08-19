@@ -54,7 +54,6 @@ export class UserService {
         new: true,
       }
       )
-
       res.json( updatedUser );
     } catch (error) {
       res.status(500).json({ msg: error.message });

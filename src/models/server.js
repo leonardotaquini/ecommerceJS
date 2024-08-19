@@ -15,9 +15,9 @@ class Server {
     this.app = express();
     this.dbConnection();
     this.port = PORT;
-    this.usuariosPath = "/api/usuarios";
-    this.productosPath = "/api/productos";
-    this.pedidosPath = "/api/pedidos";
+    this.usuariosPath = "/api/users";
+    this.productosPath = "/api/products";
+    this.pedidosPath = "/api/purchases";
     // Middlewares
     this.middlewares();
     // Rutas de mi aplicación

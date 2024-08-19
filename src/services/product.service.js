@@ -60,7 +60,10 @@ export class ProductService {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).send("No product with that id");
     }
-    await Product.findByIdAndDelete(id);
-    res.json({ message: "Product deleted successfully" });
+    const product = await Product.deleteOne({ _id: id });
+    if(product.deletedCount === 0){
+      return res.status(404).json("No product with that id");
+    }
+    res.json({ message: "Product deleted successfully", product });
   }
 }
