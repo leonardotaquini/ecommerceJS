@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
-import userRoutes from "../routes/userRoutes.js";
+import userRoutes from "../controllers/user.controller.js";
+import productoRoutes from "../controllers/product.controller.js";
+import pedidosRoutes from "../controllers/purchase.controller.js";
 import { connectDB } from "../config/db.js";
 import { envConfig } from '../config/enviroments.js';
 
@@ -14,6 +16,8 @@ class Server {
     this.dbConnection();
     this.port = PORT;
     this.usuariosPath = "/api/usuarios";
+    this.productosPath = "/api/productos";
+    this.pedidosPath = "/api/pedidos";
     // Middlewares
     this.middlewares();
     // Rutas de mi aplicación
@@ -34,6 +38,8 @@ class Server {
 
   routes() {
     this.app.use(this.usuariosPath, userRoutes);
+    this.app.use(this.productosPath, productoRoutes);
+    this.app.use(this.pedidosPath, pedidosRoutes);
   }
 
   listen() {

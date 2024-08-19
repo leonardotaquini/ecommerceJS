@@ -1,29 +1,15 @@
-export class UserController {
-    constructor() {
-        this.getUsers = this.getUsers.bind(this);
-        this.getUser = this.getUser.bind(this);
-        this.createUser = this.createUser.bind(this);
-        this.updateUser = this.updateUser.bind(this);
-        this.deleteUser = this.deleteUser.bind(this);
-    }
+import { Router } from "express";
+import { UserService } from "../services/user.service.js";
+import { userSchema } from "../models/schemas/user.schema.js";
+import { validateSchema } from "../middlewares/validate.schema.js";
 
-    getUsers(req, res) {
-        res.json({ msg: 'get API - Get all users' });
-    }
+const router = Router();
+const userService = new UserService();
 
-    getUser(req, res) {
-        res.json({ msg: 'get API - Get a single user' });
-    }
+router.get('/', userService.getUsers);
+router.get('/:id', userService.getUser);
+router.post('/', userSchema, validateSchema, userService.createUser);
+router.patch('/:id', userSchema, validateSchema, userService.updateUser);
+router.delete('/:id', userService.deleteUser);
 
-    createUser(req, res) {
-        res.json({ msg: 'post API - Create a user' });
-    }
-
-    updateUser(req, res) {
-        res.json({ msg: 'update API - Update a user' });
-    }
-
-    deleteUser(req, res) {
-        res.json({ msg: 'delete API - Delete a user' });
-    }
-}
+export default router;
